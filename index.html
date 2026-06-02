@@ -3,47 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Velora - Next-Gen Human-like Hindi TTS</title>
+    <title>Velora - Next-Gen Human-like TTS & Video</title>
     <style>
-        /* ಕಣ್ಣಿಗೆ ತಂಪು ನೀಡುವ ಡಾರ್ಕ್ ಥೀಮ್ ಮತ್ತು ಪ್ರೀಮಿಯಂ ಲುಕ್ */
+        /* ಪ್ರೀಮಿಯಂ ಡಾರ್ಕ್ ಥೀಮ್ ಮತ್ತು ರಿಸ್ಪಾನ್ಸಿವ್ ಡಿಸೈನ್ */
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #1e293b;
+            --text-main: #f3f4f6;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --primary-hover: #0284c7;
+            --accent: #10b981;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0b0f19;
-            color: #f3f4f6;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
-        .wrapper {
-            width: 90%;
-            max-width: 700px;
-            background: #1e293b;
-            padding: 40px;
+
+        /* ಹೆಡರ್ ಮತ್ತು ಲಾಗಿನ್ ಸೆಕ್ಷನ್ */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #334155;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: 2px;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .login-btn {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 20px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .login-btn:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        /* ಮೇನ್ ಲೇಔಟ್: ಮೊಬೈಲ್ ಮತ್ತು ಪಿಸಿಗೆ ಹೊಂದಿಕೊಳ್ಳುತ್ತದೆ */
+        .main-container {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 40px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        @media (max-width: 900px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 24px;
             border: 1px solid #334155;
-            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
-        h1 {
-            font-size: 2.5rem;
-            color: #38bdf8;
-            margin-bottom: 5px;
-            letter-spacing: 1px;
+
+        h2 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 1.5rem;
         }
-        .tagline {
-            color: #94a3b8;
-            font-size: 1rem;
-            margin-bottom: 30px;
-        }
+
         textarea {
             width: 100%;
-            height: 150px;
+            height: 180px;
             background: #0f172a;
             border: 2px solid #475569;
-            border-radius: 12px;
+            border-radius: 16px;
             color: #fff;
             padding: 15px;
             font-size: 1.1rem;
@@ -52,66 +117,186 @@
             outline: none;
             transition: 0.3s;
         }
+
         textarea:focus {
-            border-color: #38bdf8;
-            box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
+            border-color: var(--primary);
         }
-        .engine-status {
-            margin-top: 15px;
-            font-size: 0.9rem;
-            color: #ea580c;
-            font-weight: bold;
+
+        /* ಎಮೋಷನ್ ಇಂಡಿಕೇಟರ್ಸ್ */
+        .status-box {
+            background: #0f172a;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: left;
+            border-left: 4px solid var(--primary);
         }
+
+        .status-title {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .status-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-top: 5px;
+        }
+
+        /* ಬಟನ್ ಶೈಲಿ */
         .action-btn {
             background: linear-gradient(135deg, #38bdf8, #0284c7);
             color: #fff;
             border: none;
-            padding: 14px 40px;
+            padding: 16px;
             font-size: 1.1rem;
             font-weight: 600;
-            border-radius: 30px;
+            border-radius: 16px;
             cursor: pointer;
-            margin-top: 25px;
+            margin-top: 20px;
             box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
             transition: 0.3s;
         }
+
         .action-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(2, 132, 199, 0.6);
+        }
+
+        /* ರೈಟ್ ಸೈಡ್: ವಿಡಿಯೋ ಮತ್ತು ಅವತಾರ್ ಪ್ರಿವ್ಯೂ ಸೆಕ್ಷನ್ */
+        .preview-box {
+            background: #0f172a;
+            border-radius: 16px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 2px dashed #334155;
+            min-height: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preview-placeholder {
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .preview-placeholder svg {
+            width: 60px;
+            height: 60px;
+            fill: #475569;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid #334155;
+            background: #0f172a;
         }
     </style>
 </head>
 <body>
 
-<div class="wrapper">
-    <h1>VELORA</h1>
-    <div class="tagline">Next-Level Human-like Hindi Text-to-Speech Engine</div>
-    
-    <textarea id="hindiInputField" placeholder="यहाँ हिंदी में लिखिए... (e.g., भाइयों और बहनों, आज का दिन बहुत विशेष है...)"></textarea>
-    
-    <div class="engine-status" id="engineStatus">Velora Engine: Ready to Analyze...</div>
-    
-    <button class="action-btn" onclick="startVeloraEngine()">Analyze & Speak</button>
-</div>
+    <header>
+        <div class="logo">VELORA</div>
+        <div class="user-profile" id="userProfileArea">
+            <button class="login-btn" onclick="toggleLogin()">Sign In / Sign Up</button>
+        </div>
+    </header>
 
-<script>
-    // ವೆಬ್‌ಸೈಟ್ ಕೆಲಸ ಮಾಡುವ ಆರಂಭಿಕ ಲಾಜಿಕ್
-    function startVeloraEngine() {
-        let inputText = document.getElementById('hindiInputField').value.trim();
+    <div class="main-container">
         
-        if (inputText === "") {
-            alert("Please enter some Hindi text first!");
-            return;
+        <div class="card">
+            <div>
+                <h2>Human-like Hindi Speech Studio</h2>
+                <textarea id="hindiText" placeholder="यहाँ हिंदी में भाषण या टेक्स्ट लिखिए... (e.g., मित्रों, आज हम एक नए युग की शुरुआत कर रहे हैं...)"></textarea>
+                
+                <div class="status-box">
+                    <div class="status-title">Velora Brain Analysis</div>
+                    <div class="status-value" id="brainStatus">System Status: Waiting for input...</div>
+                </div>
+            </div>
+            <button class="action-btn" onclick="processVeloraEngine()">Generate & Speak</button>
+        </div>
+
+        <div class="card">
+            <h2>Velora Video & Avatar Live View</h2>
+            <div class="preview-box" id="previewArea">
+                <div class="preview-placeholder">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4zM14 16H5V8h9v8z"/>
+                    </svg>
+                    <div>Velora Video Engine Ready</div>
+                    <small style="color: #475569; display:block; margin-top:5px;">Avatar lip-sync will appear here</small>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        &copy; 2026 Velora Engine. All Rights Reserved. Built for Next-Level Human Experience.
+    </footer>
+
+    <script>
+        let isLoggedIn = false;
+
+        // ಲಾಗಿನ್ ಸಿಸ್ಟಮ್ ಕಾರ್ಯವಿಧಾನ
+        function toggleLogin() {
+            const profileArea = document.getElementById('userProfileArea');
+            if (!isLoggedIn) {
+                // ಲಾಗಿನ್ ಆದಾಗ ಅಕೌಂಟ್ ಪ್ರೊಫೈಲ್ ತೋರಿಸುವುದು
+                profileArea.innerHTML = `
+                    <span style="color: #10b981; font-weight: 600; font-size:0.95rem;">● Account: Active</span>
+                    <button class="login-btn" style="border-color: #ef4444; color: #ef4444;" onclick="toggleLogin()">Logout</button>
+                `;
+                isLoggedIn = true;
+            } else {
+                // ಲಾಗ್‌ಔಟ್ ಆದಾಗ
+                profileArea.innerHTML = `<button class="login-btn" onclick="toggleLogin()">Sign In / Sign Up</button>`;
+                isLoggedIn = false;
+            }
         }
-        
-        // ಸ್ಟೇಟಸ್ ಬದಲಾಯಿಸುವುದು
-        document.getElementById('engineStatus').style.color = "#38bdf8";
-        document.getElementById('engineStatus').innerText = "Velora Brain: Analyzing text emotions & pauses...";
-        
-        // ಮುಂದಿನ ಹಂತದಲ್ಲಿ ಇಲ್ಲಿಗೆ ನಮ್ಮ 'ಸ್ಮಾಲ್ AI API' ಮತ್ತು 'ಸೌಂಡ್ ಬ್ಯಾಂಕ್' ಲಿಂಕ್ ಆಗುತ್ತದೆ.
-        console.log("Analyzing text: " + inputText);
-    }
-</script>
 
+        // ವೆಲೋರಾ ಎಂಜಿನ್ ರನ್ ಮಾಡುವ ಮುಖ್ಯ ಸಿಸ್ಟಮ್
+        function processVeloraEngine() {
+            const text = document.getElementById('hindiText').value.trim();
+            const statusDisplay = document.getElementById('brainStatus');
+            const previewArea = document.getElementById('previewArea');
+
+            if (!text) {
+                alert("Please enter some Hindi speech text first!");
+                return;
+            }
+
+            // ಹಂತ 1: ಬ್ರೈನ್ ಅನಾಲಿಸಿಸ್ ಸ್ಟೇಟಸ್ ಬದಲಾವಣೆ
+            statusDisplay.style.color = "#38bdf8";
+            statusDisplay.innerHTML = "🧠 Analyzing text: Detecting primary emotion, breath gaps, and word emphasis...";
+
+            // ಹಂತ 2: ರಿಯಲ್-ಟೈಮ್‌ನಲ್ಲಿ ಹ್ಯೂಮನ್ ಎಫೆಕ್ಟ್ಸ್ ಸಿಮ್ಯುಲೇಷನ್
+            setTimeout(() => {
+                statusDisplay.style.color = "#10b981";
+                statusDisplay.innerHTML = "✨ Emotion Detected: [Dynamic Orator Mode] | Added 3 Breath Pauses";
+                
+                // ವಿಡಿಯೋ ಪ್ರಿವ್ಯೂ ಬಾಕ್ಸ್‌ನಲ್ಲಿ ಅನಿಮೇಷನ್ ಸಿಗ್ನಲ್ ತೋರಿಸುವುದು
+                previewArea.style.borderColor = "#10b981";
+                previewArea.innerHTML = `
+                    <div style="text-align:center; color:#10b981;">
+                        <div style="font-size: 2rem; margin-bottom:10px;">🎙️</div>
+                        <div style="font-weight:600;">Velora Human-Voice Engine Active</div>
+                        <small style="color:var(--text-muted);">Assembling audio bank clips with human expressions...</small>
+                    </div>
+                `;
+            }, 1500);
+        }
+    </script>
 </body>
-</html>
+    </html>
