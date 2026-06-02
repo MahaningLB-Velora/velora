@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velora</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+    <div class="logo">Velora</div>
+    <button class="signin">Sign In</button>
+</nav>
+
+<section class="hero">
+    <h1>Create Realistic Speaking Videos From Text</h1>
+    <p>Turn your ideas into natural speech and professional content.</p>
+</section>
+
+<section class="generator">
+    <textarea
+        id="script"
+        placeholder="Paste your Hindi script here..."
+    ></textarea>
+
+    <div class="controls">
+
+        <select>
+            <option>Hindi Male</option>
+            <option>Hindi Female</option>
+        </select>
+
+        <select>
+            <option>Motivational</option>
+            <option>Educational</option>
+            <option>Storytelling</option>
+        </select>
+
+    </div>
+
+    <button id="generate">
+        Generate
+    </button>
+</section>
+
+<section class="preview">
+    <h2>Output Preview</h2>
+    <p>Audio will appear here.</p>
+</section>
+
+<script src="app.js"></script>
+
+</body>
+      </html>
