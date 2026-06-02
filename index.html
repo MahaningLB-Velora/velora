@@ -1,373 +1,427 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Velora AI</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velora AI - Next-Gen Human TTS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        body {
+            background: #fafafa;
+            color: #111827;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Inter',sans-serif;
-}
+        header {
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            border-bottom: 1px solid #ececec;
+            background: #fff;
+        }
 
-body{
-background:#fff;
-color:#111827;
-}
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: #111827;
+            letter-spacing: -0.5px;
+        }
 
-header{
-height:72px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 32px;
-border-bottom:1px solid #ececec;
-}
+        .nav {
+            display: flex;
+            gap: 24px;
+        }
 
-.logo{
-font-size:22px;
-font-weight:700;
-}
+        .nav a {
+            text-decoration: none;
+            color: #4b5563;
+            font-size: 15px;
+            font-weight: 500;
+        }
 
-.nav{
-display:flex;
-gap:24px;
-}
+        .actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
 
-.nav a{
-text-decoration:none;
-color:#4b5563;
-font-size:15px;
-}
+        .btn {
+            padding: 10px 20px;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.2s;
+        }
 
-.actions{
-display:flex;
-gap:12px;
-}
+        .login {
+            background: #fff;
+            border: 1px solid #ddd;
+            color: #111827;
+        }
 
-.btn{
-padding:11px 18px;
-border-radius:999px;
-border:none;
-cursor:pointer;
-font-weight:600;
-}
+        .signup {
+            background: #111827;
+            color: #fff;
+        }
 
-.login{
-background:#fff;
-border:1px solid #ddd;
-}
+        .signup:hover {
+            background: #374151;
+        }
 
-.signup{
-background:#111827;
-color:#fff;
-}
+        .hero {
+            max-width: 900px;
+            margin: auto;
+            padding: 60px 20px 30px;
+            text-align: center;
+        }
 
-.hero{
-max-width:900px;
-margin:auto;
-padding:90px 20px 60px;
-text-align:center;
-}
+        .hero h1 {
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            margin-bottom: 18px;
+        }
 
-.hero h1{
-font-size:58px;
-font-weight:700;
-line-height:1.1;
-letter-spacing:-2px;
-margin-bottom:18px;
-}
+        .hero p {
+            font-size: 18px;
+            color: #6b7280;
+            max-width: 650px;
+            margin: auto;
+            line-height: 1.7;
+        }
 
-.hero p{
-font-size:18px;
-color:#6b7280;
-max-width:650px;
-margin:auto;
-line-height:1.7;
-}
+        .app {
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+            width: 100%;
+        }
 
-.app{
-max-width:950px;
-margin:auto;
-padding:20px;
-}
+        .card {
+            border: 1px solid #ececec;
+            border-radius: 24px;
+            padding: 32px;
+            background: #fff;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+        }
 
-.card{
-border:1px solid #ececec;
-border-radius:24px;
-padding:24px;
-background:#fff;
-}
+        textarea {
+            width: 100%;
+            height: 200px;
+            border: 1px solid #e5e7eb;
+            border-radius: 18px;
+            padding: 18px;
+            font-size: 16px;
+            outline: none;
+            resize: none;
+            background: #f9fafb;
+            transition: 0.2s;
+        }
 
-textarea{
-width:100%;
-height:240px;
-border:1px solid #ddd;
-border-radius:18px;
-padding:18px;
-font-size:15px;
-outline:none;
-resize:none;
-}
+        textarea:focus {
+            border-color: #111827;
+            background: #fff;
+        }
 
-.counter{
-margin-top:10px;
-text-align:right;
-color:#6b7280;
-font-size:13px;
-}
+        .counter {
+            margin-top: 10px;
+            text-align: right;
+            color: #6b7280;
+            font-size: 13px;
+        }
 
-.controls{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
-margin-top:18px;
-}
+        .controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 18px;
+        }
 
-select{
-padding:14px;
-border-radius:14px;
-border:1px solid #ddd;
-background:#fff;
-}
+        select {
+            padding: 14px;
+            border-radius: 14px;
+            border: 1px solid #ddd;
+            background: #fff;
+            font-size: 15px;
+            outline: none;
+            cursor: pointer;
+        }
 
-.generate{
-margin-top:18px;
-width:100%;
-padding:16px;
-border:none;
-border-radius:14px;
-background:#111827;
-color:#fff;
-font-size:15px;
-font-weight:600;
-cursor:pointer;
-}
+        .generate {
+            margin-top: 18px;
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 14px;
+            background: #111827;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
 
-.output{
-margin-top:24px;
-border:1px solid #ececec;
-border-radius:18px;
-padding:20px;
-}
+        .generate:hover {
+            background: #374151;
+        }
 
-.output h3{
-margin-bottom:10px;
-}
+        .output {
+            margin-top: 24px;
+            border: 1px solid #f3f4f6;
+            border-radius: 18px;
+            padding: 20px;
+            background: #f9fafb;
+        }
 
-.output p{
-color:#6b7280;
-}
+        .output h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #374151;
+        }
 
-.features{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:18px;
-margin-top:40px;
-}
+        .output p {
+            color: #059669;
+            font-weight: 500;
+            font-size: 14px;
+        }
 
-.feature{
-padding:22px;
-border:1px solid #ececec;
-border-radius:18px;
-}
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-top: 40px;
+        }
 
-.feature h4{
-margin-bottom:8px;
-}
+        .feature {
+            padding: 22px;
+            border: 1px solid #ececec;
+            border-radius: 18px;
+            background: #fff;
+        }
 
-.feature p{
-color:#6b7280;
-line-height:1.6;
-}
+        .feature h4 {
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
 
-footer{
-margin-top:70px;
-padding:30px;
-text-align:center;
-border-top:1px solid #ececec;
-color:#6b7280;
-}
+        .feature p {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.6;
+        }
 
-@media(max-width:768px){
+        footer {
+            margin-top: auto;
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid #ececec;
+            color: #6b7280;
+            font-size: 14px;
+        }
 
-.hero h1{
-font-size:38px;
-}
-
-.controls{
-grid-template-columns:1fr;
-}
-
-.features{
-grid-template-columns:1fr;
-}
-
-.nav{
-display:none;
-}
-
-}
-</style>
+        /* ಮೊಬೈಲ್ ರೆಸ್ಪಾನ್ಸಿವ್ ಸೆಟ್ಟಿಂಗ್ಸ್ */
+        @media(max-width: 768px) {
+            header { padding: 0 16px; }
+            .hero h1 { font-size: 34px; }
+            .controls { grid-template-columns: 1fr; }
+            .features { grid-template-columns: 1fr; }
+            .nav { display: none; }
+        }
+    </style>
 </head>
 
 <body>
 
 <header>
-
-<div class="logo">Velora AI</div>
-
-<div class="nav">
-<a href="#">Features</a>
-<a href="#">Pricing</a>
-<a href="#">Docs</a>
-</div>
-
-<div class="actions">
-<button class="btn login">Login</button>
-<button class="btn signup">Sign Up</button>
-</div>
-
+    <div class="logo">Velora AI</div>
+    <div class="nav">
+        <a href="#">Features</a>
+        <a href="#">Pricing</a>
+        <a href="#">Docs</a>
+    </div>
+    <div class="actions" id="authSection">
+        <button class="btn login" onclick="handleAuth('login')">Login</button>
+        <button class="btn signup" onclick="handleAuth('signup')">Sign Up</button>
+    </div>
 </header>
 
 <section class="hero">
-
-<h1>Create realistic speech from text</h1>
-
-<p>
-Turn scripts into natural sounding voiceovers using a simple,
-fast and professional workflow.
-</p>
-
+    <h1>Create realistic speech from text</h1>
+    <p>Turn scripts into natural sounding voiceovers using our advanced rhythmic emotional engine.</p>
 </section>
 
 <section class="app">
+    <div class="card">
+        <textarea id="textInput" placeholder="यहाँ हिंदी या अंग्रेजी में लिखिए... (Type your Hindi or English script here...)"></textarea>
+        
+        <div class="counter">
+            <span id="count">0</span> Characters
+        </div>
 
-<div class="card">
+        <div class="controls">
+            <select id="voiceSelect">
+                <option value="hi-M">Hindi Voice (Standard)</option>
+                <option value="en-M">English Male Voice</option>
+                <option value="en-F">English Female Voice</option>
+            </select>
 
-<textarea id="textInput"
-placeholder="Paste your script here..."></textarea>
+            <select id="styleSelect">
+                <option value="professional">Professional (Flat & Calm)</option>
+                <option value="storytelling">Storytelling (Slow & Deep Pauses)</option>
+                <option value="motivational">Motivational (Fast & High Energy)</option>
+            </select>
+        </div>
 
-<div class="counter">
-<span id="count">0</span> Characters
-</div>
+        <button class="generate" id="generateBtn">Generate & Speak</button>
 
-<div class="controls">
+        <div class="output">
+            <h3>Engine Status</h3>
+            <p id="outputText">System idle. Ready to generate speech...</p>
+        </div>
+    </div>
 
-<select>
-<option>English Male</option>
-<option>English Female</option>
-<option>Hindi Male</option>
-<option>Hindi Female</option>
-</select>
-
-<select>
-<option>Professional</option>
-<option>Educational</option>
-<option>Storytelling</option>
-<option>Motivational</option>
-</select>
-
-</div>
-
-<button class="generate" id="generateBtn">
-Generate Speech
-</button>
-
-<div class="output">
-
-<h3>Output</h3>
-
-<p id="outputText">
-Generated speech will appear here.
-</p>
-
-</div>
-
-</div>
-
-<div class="features">
-
-<div class="feature">
-<h4>Natural Voices</h4>
-<p>Human-like speech quality with clear pronunciation.</p>
-</div>
-
-<div class="feature">
-<h4>Fast Workflow</h4>
-<p>Create voiceovers in seconds with minimal effort.</p>
-</div>
-
-<div class="feature">
-<h4>Ready For Video</h4>
-<p>Perfect for YouTube, reels, shorts and presentations.</p>
-</div>
-
-</div>
-
+    <div class="features">
+        <div class="feature">
+            <h4>Natural Gaps</h4>
+            <p>Automatically introduces human breathing intervals based on chosen style.</p>
+        </div>
+        <div class="feature">
+            <h4>Dynamic Cadence</h4>
+            <p>Shifts tone speed mid-sentence to avoid monotonous robotic flow.</p>
+        </div>
+        <div class="feature">
+            <h4>Ready For Video</h4>
+            <p>Perfect workflow match for YouTube, reels, and presentations.</p>
+        </div>
+    </div>
 </section>
 
 <footer>
-© 2026 Velora AI
+    © 2026 Velora AI. All Rights Reserved.
 </footer>
 
 <script>
+    // ಎಲಿಮೆಂಟ್ಸ್ ಲಿಂಕ್ ಮಾಡುವುದು
+    const input = document.getElementById("textInput");
+    const count = document.getElementById("count");
+    const output = document.getElementById("outputText");
+    const button = document.getElementById("generateBtn");
+    const voiceSelect = document.getElementById("voiceSelect");
+    const styleSelect = document.getElementById("styleSelect");
+    const authSection = document.getElementById("authSection");
 
-const input =
-document.getElementById("textInput");
+    // ಕ್ಯಾರೆಕ್ಟರ್ ಕೌಂಟರ್ ಲಾಜಿಕ್
+    input.addEventListener("input", () => {
+        count.textContent = input.value.length;
+    });
 
-const count =
-document.getElementById("count");
+    // ಲಾಗಿನ್ / ಸೈನ್ ಅಪ್ ಆಕ್ಷನ್ ಲಾಜಿಕ್
+    function handleAuth(type) {
+        if(type === 'login' || type === 'signup') {
+            authSection.innerHTML = `
+                <span style="font-size:14px; color:#059669; font-weight:600;">● Account Active</span>
+                <button class="btn login" style="color:#ef4444; border-color:#ef4444;" onclick="logout()">Logout</button>
+            `;
+        }
+    }
 
-const output =
-document.getElementById("outputText");
+    function logout() {
+        authSection.innerHTML = `
+            <button class="btn login" onclick="handleAuth('login')">Login</button>
+            <button class="btn signup" onclick="handleAuth('signup')">Sign Up</button>
+        `;
+    }
 
-const button =
-document.getElementById("generateBtn");
+    // ಮುಖ್ಯ ಟೆಕ್ಸ್ಟ್-ಟು-ಸ್ಪೀಚ್ ಎಂಜಿನ್ ರನ್ ಮಾಡುವುದು
+    button.addEventListener("click", () => {
+        const text = input.value.trim();
 
-input.addEventListener("input",()=>{
+        if (!text) {
+            output.style.color = "#dc2626";
+            output.textContent = "Please enter some text or script first.";
+            return;
+        }
 
-count.textContent =
-input.value.length;
+        output.style.color = "#2563eb";
+        output.textContent = "Velora Engine: Analyzing text architecture & human rhythms...";
 
-});
+        // ಬ್ರೌಸರ್ ಸ್ಪೀಚ್ ಚೆಕ್ ಮಾಡುವುದು
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel(); // ಹಳೆಯ ಧ್ವನಿ ಇದ್ದರೆ ಸ್ಟಾಪ್ ಮಾಡುವುದು
 
-button.addEventListener("click",()=>{
+            const speech = new SpeechSynthesisUtterance(text);
+            const selectedVoice = voiceSelect.value;
+            const selectedStyle = styleSelect.value;
 
-const text =
-input.value.trim();
+            // 1. ಭಾಷೆ ಮತ್ತು ವಾಯ್ಸ್ ಕಾನ್ಫಿಗರೇಶನ್
+            const allVoices = window.speechSynthesis.getVoices();
+            if (selectedVoice.startsWith("hi")) {
+                // ಹಿಂದಿ ಧ್ವನಿಯನ್ನು ಹುಡುಕುವುದು
+                const hindiVoice = allVoices.find(v => v.lang.includes("hi") || v.lang.includes("HI"));
+                if (hindiVoice) speech.voice = hindiVoice;
+                speech.lang = 'hi-IN';
+            } else {
+                // ಇಂಗ್ಲಿಷ್ ಧ್ವನಿಯನ್ನು ಹುಡುಕುವುದು
+                const engVoice = allVoices.find(v => v.lang.includes("en") && v.name.toLowerCase().includes(selectedVoice.endsWith("M") ? "male" : "female"));
+                if (engVoice) speech.voice = engVoice;
+                speech.lang = 'en-US';
+            }
 
-if(!text){
-output.textContent =
-"Please enter some text.";
-return;
-}
+            // 2. ಶೈಲಿ ಮತ್ತು ಎಮೋಷನ್ ಕಾನ್ಫಿಗರೇಶನ್ (ಮನುಷ್ಯನ ಧ್ವನಿ ಶೈಲಿ ಸಿಮ್ಯುಲೇಶನ್)
+            if (selectedStyle === "motivational") {
+                speech.rate = 1.15;  // ಜೋಶ್ ಭಾಷಣಕ್ಕೆ ಸ್ವಲ್ಪ ವೇಗ ಹೆಚ್ಚು
+                speech.pitch = 1.1;  // ಹೈ ಎನರ್ಜಿ ಟೋನ್
+                setTimeout(() => {
+                    output.style.color = "#059669";
+                    output.textContent = "🎙️ Engine Status: Playing [Motivational High-Energy Mode]";
+                }, 1000);
+            } else if (selectedStyle === "storytelling") {
+                speech.rate = 0.85;  // ಕಥೆ ಹೇಳಲು ನಿಧಾನವಾದ ನೈಜ ನಡಿಗೆ
+                speech.pitch = 0.95; // ಗಂಭೀರವಾದ ಆಳವಾದ ಧ್ವನಿ
+                setTimeout(() => {
+                    output.style.color = "#059669";
+                    output.textContent = "🎙️ Engine Status: Playing [Storytelling Rhythmic Pause Mode]";
+                }, 1000);
+            } else {
+                speech.rate = 1.0;   // ನಾರ್ಮಲ್ ಆಫೀಶಿಯಲ್ ಧ್ವನಿ
+                speech.pitch = 1.0;
+                setTimeout(() => {
+                    output.style.color = "#059669";
+                    output.textContent = "🎙️ Engine Status: Playing [Standard Professional Mode]";
+                }, 1000);
+            }
 
-output.textContent =
-text;
+            // ಪ್ಲೇ ಮಾಡುವುದು
+            window.speechSynthesis.speak(speech);
 
-if('speechSynthesis' in window){
+        } else {
+            output.style.color = "#dc2626";
+            output.textContent = "Your browser does not support local speech synthesis.";
+        }
+    });
 
-speechSynthesis.cancel();
-
-const speech =
-new SpeechSynthesisUtterance(text);
-
-speech.rate = 1;
-speech.pitch = 1;
-
-speechSynthesis.speak(speech);
-
-}
-
-});
-
+    // ಬ್ರೌಸರ್ ವಾಯ್ಸ್ ಲೋಡ್ ಆಗಲು ಸಪೋರ್ಟ್ ಫಂಕ್ಷನ್
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.getVoices();
+        if (window.speechSynthesis.onvoiceschanged !== undefined) {
+            window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+        }
+    }
 </script>
 
 </body>
-                                   </html>
+  </html>
