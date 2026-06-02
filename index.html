@@ -1,225 +1,117 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Velora</title><style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velora - Next-Gen Human-like Hindi TTS</title>
+    <style>
+        /* ಕಣ್ಣಿಗೆ ತಂಪು ನೀಡುವ ಡಾರ್ಕ್ ಥೀಮ್ ಮತ್ತು ಪ್ರೀಮಿಯಂ ಲುಕ್ */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0b0f19;
+            color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .wrapper {
+            width: 90%;
+            max-width: 700px;
+            background: #1e293b;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid #334155;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #38bdf8;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+        .tagline {
+            color: #94a3b8;
+            font-size: 1rem;
+            margin-bottom: 30px;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            background: #0f172a;
+            border: 2px solid #475569;
+            border-radius: 12px;
+            color: #fff;
+            padding: 15px;
+            font-size: 1.1rem;
+            resize: none;
+            box-sizing: border-box;
+            outline: none;
+            transition: 0.3s;
+        }
+        textarea:focus {
+            border-color: #38bdf8;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
+        }
+        .engine-status {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #ea580c;
+            font-weight: bold;
+        }
+        .action-btn {
+            background: linear-gradient(135deg, #38bdf8, #0284c7);
+            color: #fff;
+            border: none;
+            padding: 14px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 25px;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
+            transition: 0.3s;
+        }
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.6);
+        }
+    </style>
+</head>
+<body>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Inter,Arial,sans-serif;
-}
+<div class="wrapper">
+    <h1>VELORA</h1>
+    <div class="tagline">Next-Level Human-like Hindi Text-to-Speech Engine</div>
+    
+    <textarea id="hindiInputField" placeholder="यहाँ हिंदी में लिखिए... (e.g., भाइयों और बहनों, आज का दिन बहुत विशेष है...)"></textarea>
+    
+    <div class="engine-status" id="engineStatus">Velora Engine: Ready to Analyze...</div>
+    
+    <button class="action-btn" onclick="startVeloraEngine()">Analyze & Speak</button>
+</div>
 
-body{
-background:#0f1117;
-color:#ffffff;
-}
+<script>
+    // ವೆಬ್‌ಸೈಟ್ ಕೆಲಸ ಮಾಡುವ ಆರಂಭಿಕ ಲಾಜಿಕ್
+    function startVeloraEngine() {
+        let inputText = document.getElementById('hindiInputField').value.trim();
+        
+        if (inputText === "") {
+            alert("Please enter some Hindi text first!");
+            return;
+        }
+        
+        // ಸ್ಟೇಟಸ್ ಬದಲಾಯಿಸುವುದು
+        document.getElementById('engineStatus').style.color = "#38bdf8";
+        document.getElementById('engineStatus').innerText = "Velora Brain: Analyzing text emotions & pauses...";
+        
+        // ಮುಂದಿನ ಹಂತದಲ್ಲಿ ಇಲ್ಲಿಗೆ ನಮ್ಮ 'ಸ್ಮಾಲ್ AI API' ಮತ್ತು 'ಸೌಂಡ್ ಬ್ಯಾಂಕ್' ಲಿಂಕ್ ಆಗುತ್ತದೆ.
+        console.log("Analyzing text: " + inputText);
+    }
+</script>
 
-nav{
-height:70px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 24px;
-border-bottom:1px solid #1f2937;
-}
-
-.logo{
-font-size:22px;
-font-weight:700;
-}
-
-.signin{
-background:none;
-border:1px solid #2d3748;
-color:white;
-padding:10px 18px;
-border-radius:8px;
-cursor:pointer;
-}
-
-.container{
-max-width:900px;
-margin:auto;
-padding:60px 20px;
-}
-
-.hero{
-text-align:center;
-margin-bottom:40px;
-}
-
-.hero h1{
-font-size:42px;
-font-weight:700;
-line-height:1.2;
-margin-bottom:14px;
-}
-
-.hero p{
-color:#9ca3af;
-font-size:16px;
-}
-
-.generator{
-background:#161b22;
-border:1px solid #222831;
-border-radius:14px;
-padding:20px;
-}
-
-textarea{
-width:100%;
-height:260px;
-background:#0f1117;
-border:1px solid #2d3748;
-border-radius:12px;
-padding:16px;
-color:white;
-font-size:15px;
-resize:none;
-outline:none;
-}
-
-.counter{
-margin-top:10px;
-font-size:13px;
-color:#9ca3af;
-text-align:right;
-}
-
-.controls{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
-margin-top:16px;
-}
-
-select{
-background:#0f1117;
-color:white;
-border:1px solid #2d3748;
-padding:12px;
-border-radius:10px;
-outline:none;
-}
-
-.generate{
-width:100%;
-margin-top:18px;
-padding:14px;
-background:white;
-color:black;
-border:none;
-border-radius:10px;
-font-size:15px;
-font-weight:600;
-cursor:pointer;
-}
-
-.output{
-margin-top:24px;
-background:#161b22;
-border:1px solid #222831;
-border-radius:14px;
-padding:20px;
-}
-
-.output h3{
-margin-bottom:10px;
-}
-
-.output p{
-color:#9ca3af;
-}
-
-.features{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:16px;
-margin-top:40px;
-}
-
-.feature{
-background:#161b22;
-border:1px solid #222831;
-padding:20px;
-border-radius:12px;
-}
-
-.feature h4{
-margin-bottom:8px;
-}
-
-.feature p{
-font-size:14px;
-color:#9ca3af;
-}
-
-footer{
-margin-top:60px;
-padding:30px;
-text-align:center;
-border-top:1px solid #1f2937;
-color:#9ca3af;
-}
-
-@media(max-width:700px){
-
-.hero h1{
-font-size:30px;
-}
-
-.controls{
-grid-template-columns:1fr;
-}
-
-.features{
-grid-template-columns:1fr;
-}
-
-}
-
-</style></head><body><nav>
-<div class="logo">Velora</div>
-<button class="signin">Sign In</button>
-</nav><div class="container"><div class="hero">
-<h1>Create Realistic Speech From Text</h1>
-<p>Convert your scripts into natural sounding speech with a clean and simple workflow.</p>
-</div><div class="generator"><textarea id="textInput" placeholder="Paste your Hindi script here..."></textarea><div class="counter">
-<span id="count">0</span> Characters
-</div><div class="controls"><select>
-<option>Hindi Male</option>
-<option>Hindi Female</option>
-</select><select>
-<option>Motivational</option>
-<option>Educational</option>
-<option>Storytelling</option>
-</select></div><button class="generate">
-Generate Speech
-</button></div><div class="output">
-<h3>Output</h3>
-<p>Generated speech will appear here.</p>
-</div><div class="features"><div class="feature">
-<h4>Natural Speech</h4>
-<p>Generate clean and human sounding audio.</p>
-</div><div class="feature">
-<h4>Smart Delivery</h4>
-<p>Control pace, pauses and speaking style.</p>
-</div><div class="feature">
-<h4>Video Ready</h4>
-<p>Prepared for future avatar and video templates.</p>
-</div></div></div><footer>
-Velora
-</footer><script>
-
-const textInput=document.getElementById("textInput");
-const count=document.getElementById("count");
-
-textInput.addEventListener("input",()=>{
-count.textContent=textInput.value.length;
-});
-
-</script></body>
-                      </html>
+</body>
+</html>
